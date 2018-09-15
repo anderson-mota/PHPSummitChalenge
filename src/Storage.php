@@ -13,10 +13,10 @@ class Storage
         $this->userId = $userId;
     }
 
-    public function calcFolderUsedPercent(Folders $folders): string
+    public function calcFolderUsedPercent(Folders $folders, $userStorage): string
     {
         $conversion = 1024;
-        $storageGB = intval(str_replace('GB', '', $folders->getStorageSpace($this->userId)));
+        $storageGB = intval(str_replace('GB', '', $userStorage));
         $userFolders = $folders->list($this->userId);
         $spaceUsed = $this->spaceUsed($userFolders);
 
