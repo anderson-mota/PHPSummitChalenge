@@ -9,7 +9,7 @@
     }],
     "autoload": {
         "psr-4": {
-            "Challenge\\": "src/",
+            "Email\\": "src/",
             "Test\\": "test/"
         }
     },

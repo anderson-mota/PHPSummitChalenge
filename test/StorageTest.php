@@ -3,14 +3,14 @@
 namespace Test;
 
 use PHPUnit\Framework\TestCase;
-use Challenge\Challenge;
+use Email\Storage;
 
-class ChallengeTest extends TestCase
+class StorageTest extends TestCase
 {
-    /** @var Challenge */
-    private $challenge;
+    /** @var Storage */
+    private $storage;
 
-    public function providerFoldersUsed()
+    public function providerFoldersUsed(): array
     {
         $userFolders1 = [
             (object) ['folderName' => 'Jobs', 'size' => '23MB'],
@@ -36,15 +36,10 @@ class ChallengeTest extends TestCase
 
     /**
      * @dataProvider providerFoldersUsed
-     * @param integer $userId
-     * @param array $userFolders
-     * @param string $userStorage
-     * @param string $userPercentageUsedRoundExpected
-     * @return void
      */
-    public function testCalcFolderUsedPercent($userId, $userFolders, $userStorage, $userPercentageUsedRoundExpected)
+    public function testCalcFolderUsedPercent(int $userId, array $userFolders, string $userStorage, string $userPercentageUsedRoundExpected): void
     {
-        $folders = $this->getMockBuilder(\Challenge\Models\Folders::class)
+        $folders = $this->getMockBuilder(\Email\Models\Folders::class)
             ->setMethods(['list', 'getStorageSpace'])
             ->getMock();
 
@@ -58,8 +53,8 @@ class ChallengeTest extends TestCase
             ->with($userId)
             ->willReturn($userStorage);
 
-        $this->challenge = new Challenge($userId);
-        $percentUsed = $this->challenge->calcFolderUsedPercent($folders);
+        $this->storage = new Storage($userId);
+        $percentUsed = $this->storage->calcFolderUsedPercent($folders);
 
         $this->assertSame($userPercentageUsedRoundExpected, $percentUsed);
     }

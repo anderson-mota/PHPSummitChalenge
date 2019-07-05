@@ -1,14 +1,16 @@
 <?php
 
-namespace Challenge\Models;
+namespace Email\Models;
 
 class Folders
 {
-    public function list($userId)
+    public function list(int $userId): array
     {
+        return [];
     }
 
-    public function getStorageSpace()
+    public function getStorageSpace(): string
     {
+        return '';
     }
 }
